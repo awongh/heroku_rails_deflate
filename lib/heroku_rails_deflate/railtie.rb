@@ -20,12 +20,12 @@ module HerokuRailsDeflate
                                          'HerokuRailsDeflate::ServeZippedAssets',
                                          app.paths["public"].first,
                                          app.config.assets.prefix,
-                                         app.config.static_cache_control
+                                         app.config.public_file_server.headers
     end
 
     # Set default Cache-Control headers to 365 days. Override in config/application.rb.
     config.before_configuration do |app|
-      app.config.static_cache_control = 'public, max-age=31536000'
+      app.config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=31536000' }
     end
   end
 end

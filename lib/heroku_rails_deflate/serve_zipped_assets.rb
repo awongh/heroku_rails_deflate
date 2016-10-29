@@ -10,11 +10,11 @@ module HerokuRailsDeflate
     # Params:
     #   root: the public directory
     #   asset_prefix: config.assets.prefix
-    #   cache_control: config.static_cache_control
-    def initialize(app, root, asset_prefix, cache_control=nil)
+    #   headers: config.public_file_server.headers
+    def initialize(app, root, asset_prefix, headers={'Cache-Control' => nil})
       @app = app
       @asset_prefix = asset_prefix.chomp('/') + '/'
-      @file_handler = ActionDispatch::FileHandler.new(root, headers: { 'Cache-Control' => cache_control })
+      @file_handler = ActionDispatch::FileHandler.new(root, headers: headers)
     end
 
     def call(env)
